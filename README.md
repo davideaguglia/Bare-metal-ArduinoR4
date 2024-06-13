@@ -3,24 +3,12 @@ The Arduino Uno microcontroller board has been based, until the R4 version, on t
 
 
 ## Previous Arduino Unos
-If we want to blink the built-in LED on an AVR-based Arduino what we first need to know is to what port our digital pin is associated. In other words, where are located in memory the registers that we want to modify. This information can be found on the datasheet of our microcontroller board. For instance, for the Arduino Uno Rev3 we find
+If we want to blink the built-in LED on an AVR-based Arduino what we first need to know is to what port our digital pin is associated. In other words, where are located in memory the registers that we want to modify. This information can be found on the datasheet of our microcontroller board. For instance, for the Arduino Uno Rev3 we find:
 
-![](https://github.com/davideaguglia/Bare-metal-ArduinoR4/blob/6ac86773811ca865364ca5cb69d9fa065511b6db/images/Arduino-R3.png | width=100)
+<img width="642" alt="Arduino-R3" src="https://github.com/davideaguglia/Bare-metal-ArduinoR4/assets/151211663/57e924b5-8312-4769-96d3-fd93c3dd7523">
 
-<img src="[https://your-image-url.type](https://github.com/davideaguglia/Bare-metal-ArduinoR4/blob/6ac86773811ca865364ca5cb69d9fa065511b6db/images/Arduino-R3.png)" width="250">
+The D13 pin is related to the PB5. From at the ATmega328P datasheet we get these informations
 
+<img width="616" alt="PORTB" src="https://github.com/davideaguglia/Bare-metal-ArduinoR4/assets/151211663/852e9d3f-ec71-40e9-b9a9-04030c9cdcd0">
 
-```
-pip install transformers accelerate
-```
-Predicting the protein structure for a given sequence is then straightforward. First you need to instantiate the model, eventually transferring it to GPU
-
-```c
-from transformers import AutoTokenizer, EsmForProteinFolding
-
-tokenizer = AutoTokenizer.from_pretrained("facebook/esmfold_v1")
-model = EsmForProteinFolding.from_pretrained("facebook/esmfold_v1")
-
-model = model.cuda()
-```
-Then given a `sequence` it is possible to create the model inputs through the `tokenizer`
+The Data Direction Register (DDRB) is located in 0x24 and the bit that we want to flip, in order to set that pin as an output, is bit 5. Once that pin is set as an output we can manipulate the Port B Data Register, located in 0x25, in order to turn the led on, setting bit 5 to 1, or to turn it off, setting bit 5 to 0.  
