@@ -24,7 +24,7 @@ From the datasheet of the Arduino uno R4 we can see that the D13 pin is associat
 
 From table 19.1 we find that our pin P102 is asssociated with PORT1. In the same document we find the following informations
 
-<img width="871" alt="PORT1_registers" src="https://github.com/davideaguglia/Bare-metal-ArduinoR4/assets/151211663/02dc4aee-c7ed-483e-9944-be690e4eccd9">
+<img width="871" alt="PORT1_registers" src="https://github.com/davideaguglia/Bare-metal-ArduinoR4/assets/151211663/454f7852-fe86-47f4-865d-d802554f75b2">
 
 First, the base address of our register block is 0x40040000. Then we can see that the Port Control Register 1 (PCNTR1) "specifies the port direction and the output data, and is accessed in 32-bit units. The PODRn (bits [31:16] in PCNTR1) and PDRn (bits [15:0] in PCNTR1) respectively, are accessed in 16-bit units". This means that in our code we can first define the desired base address, write 1 to the bit number 2 in order to set the led as an output and finally write 1 or 0 to the bit 18 to turn on or off the led, respectively.   
 Why bit 2 and bit 18? Because we are interested in the pin P102 and the PORT1 controls pins from P100 to P102 and so on. Thus, the second bit from the base address will be the same as the DDRB previously described for the P102 while the Port Data Register (here PODRn) starts from bit 16, and we are interested in the second one: 16+2 = 18.
