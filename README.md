@@ -1,13 +1,15 @@
-# Bare-metal-ArduinoR4
-The Arduino Uno microcontroller board has been based, until the R4 version, on the ATmega328P, an 8-bit AVR microcontroller. This architecture has been used a lot in the past and it is possible to find plenty of tutorials on the Internet on how to program *bare-metal* this kind of hadware. For *bare-metal* I simply mean to program the device without any use of the Arduino libraries, thus writing low-level C programs that directly manipulate the registers of the hardware.
+# Bare-metal ArduinoR4
+The Arduino Uno microcontroller board has been based, until the R4 version, on the ATmega328P, an 8-bit AVR microcontroller. This architecture has been used a lot in the past and it is possible to find plenty of tutorials on the Internet on how to program *bare-metal* this kind of hadware. For *bare-metal* I simply mean to program the device without any use of the Arduino libraries, thus writing low-level C programs that directly manipulate the registers of the hardware. This implies reading and understanding the datasheet of our microcontroller in order to know where the desired ports are located. My aim here is to do the exact same thing but with a different architecture, the Arduino Uno R4 wifi, which, on the other hand, is based on the RA4M1 microprocessor from Renesas. We can start by looking at a simple example as blinking a led. 
+
+
+## Previous Arduino Unos
+If we want to blink the built-in LED on an AVR-based Arduino what we first need to know is to what port our digital pin is associated. In other words, where are located in memory the registers that we want to modify. This information can be found on the datasheet of our microcontroller board. For instance, for the Arduino Uno Rev3 we find
+
+![alt text](https://github.com/davideaguglia/Bare-metal-ArduinoR4/blob/6ac86773811ca865364ca5cb69d9fa065511b6db/images/Arduino-R3.png)
 
 
 
 
-## Usage
-To get started with this model you can either follow the instructions on the ESM GitHub page ([github](https://github.com/facebookresearch/esm?tab=readme-ov-file#esmfold)) or use the [Huggin Face Transformers library](https://huggingface.co/docs/transformers/model_doc/esm), which provides an easy-to-use implementation and doesn't require the ESMFold dependencies. 
-
-In order to use the tranformer library you need to install `transformers` and `accelerate` 
 ```
 pip install transformers accelerate
 ```
