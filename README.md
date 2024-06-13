@@ -5,9 +5,9 @@ The Arduino Uno microcontroller board has been based, until the R4 version, on t
 ## Previous Arduino Unos
 If we want to blink the built-in LED on an AVR-based Arduino what we first need to know is to what port our digital pin is associated. In other words, where are located in memory the registers that we want to modify. This information can be found on the datasheet of our microcontroller board. For instance, for the Arduino Uno Rev3 we find
 
-![alt text](https://github.com/davideaguglia/Bare-metal-ArduinoR4/blob/6ac86773811ca865364ca5cb69d9fa065511b6db/images/Arduino-R3.png)
+![](https://github.com/davideaguglia/Bare-metal-ArduinoR4/blob/6ac86773811ca865364ca5cb69d9fa065511b6db/images/Arduino-R3.png | width=100)
 
-
+<img src="[https://your-image-url.type](https://github.com/davideaguglia/Bare-metal-ArduinoR4/blob/6ac86773811ca865364ca5cb69d9fa065511b6db/images/Arduino-R3.png)" width="250">
 
 
 ```
