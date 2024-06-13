@@ -11,7 +11,7 @@ The D13 pin is related to the PB5. From at the ATmega328P datasheet we get these
 
 <img width="616" alt="PORTB" src="https://github.com/davideaguglia/Bare-metal-ArduinoR4/assets/151211663/852e9d3f-ec71-40e9-b9a9-04030c9cdcd0">
 
-The Data Direction Register (DDRB) is located in 0x24 and the bit that we want to flip, in order to set that pin as an output, is bit 5. Once that pin is set as an output we can manipulate the Port B Data Register, located in 0x25, in order to turn the led on, setting bit 5 to 1, or to turn it off, setting bit 5 to 0.  
+The Data Direction Register (DDRB) is located in 0x24 and the bit that we want to flip, in order to set that pin as an output, is bit 5. Once that pin is set as an output we can manipulate the Port B Data Register (PORTB), located in 0x25, in order to turn the led on, setting bit 5 to 1, or to turn it off, setting bit 5 to 0.  
 
 
 ## Arduino R4
@@ -27,4 +27,4 @@ From table 19.1 we find that our pin P102 is asssociated with PORT1. In the same
 <img width="871" alt="PORT1_registers" src="https://github.com/davideaguglia/Bare-metal-ArduinoR4/assets/151211663/02dc4aee-c7ed-483e-9944-be690e4eccd9">
 
 First, the base address of our register block is 0x40040000. Then we can see that the Port Control Register 1 (PCNTR1) "specifies the port direction and the output data, and is accessed in 32-bit units. The PODRn (bits [31:16] in PCNTR1) and PDRn (bits [15:0] in PCNTR1) respectively, are accessed in 16-bit units". This means that in our code we can first define the desired base address, write 1 to the bit number 2 in order to set the led as an output and finally write 1 or 0 to the bit 18 to turn on or off the led, respectively.   
-
+Why bit 2 and bit 18? Because we are interested in the pin P102 and the PORT1 controls pins from P100 to P102 and so on. Thus, the second bit from the base address will be the same as the DDRB previously described for the P102 while the Port Data Register (here PODRn) starts from bit 16, and we are interested in the second one: 16+2 = 18.
