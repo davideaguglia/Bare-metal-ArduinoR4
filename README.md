@@ -26,5 +26,31 @@ From table 19.1 we find that our pin P102 is asssociated with PORT1. In the same
 
 <img width="871" alt="PORT1_registers" src="https://github.com/davideaguglia/Bare-metal-ArduinoR4/assets/151211663/454f7852-fe86-47f4-865d-d802554f75b2">
 
-First, the base address of our register block is 0x40040000. Then we can see that the Port Control Register 1 (PCNTR1) "specifies the port direction and the output data, and is accessed in 32-bit units. The PODRn (bits [31:16] in PCNTR1) and PDRn (bits [15:0] in PCNTR1) respectively, are accessed in 16-bit units". This means that in our code we can first define the desired base address, write 1 to the bit number 2 in order to set the led as an output and finally write 1 or 0 to the bit 18 to turn on or off the led, respectively.   
-Why bit 2 and bit 18? Because we are interested in the pin P102 and the PORT1 controls pins from P100 to P102 and so on. Thus, the second bit from the base address will be the same as the DDRB previously described for the P102 while the Port Data Register (here PODRn) starts from bit 16, and we are interested in the second one: 16+2 = 18.
+First, the base address of our register block is 0x4004 0020. Then, we can see that the Port Control Register 1 (PCNTR1) "specifies the port direction and the output data, and is accessed in 32-bit units. The PODRn (bits [31:16] in PCNTR1) and PDRn (bits [15:0] in PCNTR1) respectively, are accessed in 16-bit units". This means that in our code we can first define the desired base address, write 1 to the bit number 2 in order to set the led as an output and finally write 1 or 0 to the bit 18 to turn on or off the led, respectively.   
+Why bit 2 and bit 18? Because we are interested in the pin P102 and the PORT1 controls pins from P100 to P102 and so on. Thus, the second bit from the base address will be the same as the DDRB previously described, while the Port Data Register (here PODRn) starts from bit 16, and we are interested in the second one: 16+2 = 18.
+
+
+Finally, the blink example on the Arduino Uno R4 will be something like
+
+```c
+/*
+  Blink
+  Turns an LED on for one second, then off for one second, repeatedly.
+*/
+
+#define PCNTR1 *((volatile unsigned long *)(0x40040000 + 0x20))
+#define PDR1 2
+#define PODR1 18
+
+void setup() {
+  // initialize digital pin P102 as an output.
+  PCNTR1 |= 1<<PDR1;
+}
+
+void loop() {
+  PCNTR1 |= 1<<PODR1;      // turn the LED on
+  delay(1000);             // wait for a second
+  PCNTR1 &= ~(1<<PODR1);   // turn the LED off
+  delay(1000);             // wait for a second
+}
+```
